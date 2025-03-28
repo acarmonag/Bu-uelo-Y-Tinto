@@ -6,8 +6,8 @@ from copy import deepcopy
 from django.conf import settings
 from django.db import models
 from django.forms.models import model_to_dict
+from django.utils import timezone
 from src.manager import CustomManager
-from infrastructure.models import User
 
 from src.middleware import current_request
 
@@ -20,10 +20,20 @@ class BaseModel(models.Model):
 
     created_at = models.DateTimeField('Fecha de creación', auto_now_add=True)
     updated_at = models.DateTimeField('Fecha última de modificación', auto_now=True)
-    created_by = models.ForeignKey(User, verbose_name='Creado por', related_name='%(app_label)s_%(class)s_created_by', on_delete=models.PROTECT)
-    updated_by = models.ForeignKey(User, verbose_name='Última modificación por', related_name='%(app_label)s_%(class)s_updated_by', on_delete=models.PROTECT)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name='Creado por',
+        related_name='%(app_label)s_%(class)s_created_by',
+        on_delete=models.PROTECT
+    )
+    updated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name='Última modificación por',
+        related_name='%(app_label)s_%(class)s_updated_by',
+        on_delete=models.PROTECT
+    )
     is_active = models.BooleanField('Esta activo', default=True)
-    deleted = models.BooleanField('Eliminado', default=False)
+    deleted_at = models.DateTimeField('Fecha de eliminación', null=True, blank=True)
 
     @property
     def created_by_name(self):
@@ -32,7 +42,11 @@ class BaseModel(models.Model):
     @property
     def updated_by_name(self):
         return '{0} {1} ({2})'.format(self.updated_by.first_name, self.updated_by.last_name, self.updated_by.username)
-        
+    
+    @property
+    def is_deleted(self):
+        """Returns whether the record is soft-deleted."""
+        return self.deleted_at is not None
 
     objects = CustomManager()
 
@@ -49,9 +63,18 @@ class BaseModel(models.Model):
     def delete(self, using=None, keep_parents=False):
         '''
         Sobreescribir el método eliminar, para no eliminar físicamente de la
-        base de datos, solo hacer un update.
+        base de datos, solo hacer un update con la fecha de eliminación.
         '''
-        self.deleted = True
+        self.deleted_at = timezone.now()
+        self.is_active = False
+        self.save()
+
+    def restore(self):
+        '''
+        Restaura un registro previamente eliminado (soft-deleted).
+        '''
+        self.deleted_at = None
+        self.is_active = True
         self.save()
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
@@ -117,7 +140,6 @@ class BaseModel(models.Model):
                     log_class.save()
                     self.change.append({'field':field.name, 'verbose_name':verbose_name, 'before_text':before_text, 'after_text':after_text, 'before_char':before_char, 'after_char':after_char, 'record':self})
 
-
     def _get_FIELD_display(self, field):
         if field.__class__.__name__ == 'MultipleChoiceField':
             value = getattr(self, field.attname)
@@ -137,7 +159,14 @@ class BaseLogModel(models.Model):
     field = models.CharField('Campo', max_length=100)
     verbose_name = models.CharField('Campo', max_length=100)
     created_at = models.DateTimeField('Fecha creación', auto_now_add=True)
-    created_by = models.ForeignKey(User, verbose_name='Creado por', null=True, blank=True, related_name='%(app_label)s_%(class)s_created_by', on_delete=models.PROTECT)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name='Creado por',
+        null=True,
+        blank=True,
+        related_name='%(app_label)s_%(class)s_created_by',
+        on_delete=models.PROTECT
+    )
     deleted = models.BooleanField('Eliminar', default=False)
     before_char = models.CharField('Texto antes', max_length=500, null=True, blank=True)
     after_char = models.CharField('Texto después', max_length=500, null=True, blank=True)
