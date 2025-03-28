@@ -15,31 +15,31 @@ services:
       - db
     environment:
       - PYTHONPATH=/api
-      - DB_HOST=db
-      - DB_NAME=db_prueba
+      - DB_HOST=terraform-20250328211531748800000001.ciju0so8mgum.us-east-1.rds.amazonaws.com
+      - DB_NAME=appdb
       - DB_USER=postgres
-      - DB_PASSWORD=msdeRH3gl25WeJyPPow1kMqlv
+      - DB_PASSWORD=SuperSecret123
     networks:
       - app-network
 
-  db:
-    image: postgres:15
-    container_name: 'db'
-    environment:
-      - POSTGRES_DB=db_prueba
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=msdeRH3gl25WeJyPPow1kMqlv
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app-network
+#   db:
+#     image: postgres:15
+#     container_name: 'db'
+#     environment:
+#       - POSTGRES_DB=db_prueba
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=msdeRH3gl25WeJyPPow1kMqlv
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     networks:
+#       - app-network
 
-volumes:
-  postgres_data:
+# volumes:
+#   postgres_data:
 
-networks:
-  app-network:
-    driver: bridge
+# networks:
+#   app-network:
+#     driver: bridge
       
