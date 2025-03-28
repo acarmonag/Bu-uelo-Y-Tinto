@@ -140,6 +140,32 @@ class CustomerCriteriaFind(BaseCriteriaFind):
         if self.is_deleted is not None:
             filters["is_deleted"] = self.is_deleted
         return filters
+        
+    def validate(self) -> List[str]:
+        """Validates the search criteria.
+        
+        Returns:
+            List of validation error messages. Empty list if validation passes.
+        """
+        errors = []
+        
+        # Validate pagination
+        if self.page < 1:
+            errors.append("Page number must be greater than 0")
+        if self.limit < 1:
+            errors.append("Limit must be greater than 0")
+        if self.limit > 100:
+            errors.append("Limit cannot be greater than 100")
+            
+        # Validate sorting
+        valid_fields = ["id", "name", "email", "phone", "created_at", "updated_at"]
+        if self.order_by not in valid_fields:
+            errors.append(f"Invalid sort field. Must be one of: {', '.join(valid_fields)}")
+            
+        if self.order_direction not in ["asc", "desc"]:
+            errors.append("Sort direction must be 'asc' or 'desc'")
+            
+        return errors
 
 
 @dataclass
