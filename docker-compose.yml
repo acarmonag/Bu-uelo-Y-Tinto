@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build: .
@@ -7,6 +5,7 @@ services:
     container_name: 'app'
     command: >
       sh -c "python manage.py migrate &&
+             python run.py &&
              python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
@@ -15,6 +14,7 @@ services:
     depends_on:
       - db
     environment:
+      - PYTHONPATH=/api
       - DB_HOST=db
       - DB_NAME=db_prueba
       - DB_USER=postgres
