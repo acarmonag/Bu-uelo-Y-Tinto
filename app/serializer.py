@@ -1,7 +1,7 @@
 # app/serializers.py
 
 from rest_framework import serializers
-from infrastructure.models import Product, Order, OrderStatus
+from infrastructure.models import Product, Order, OrderStatus, OrderDetail
 from django.contrib.auth.models import User
 
 
@@ -20,4 +20,9 @@ class OrderSerializer(serializers.ModelSerializer):
 class OrderStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderStatus
+        fields = '__all__'
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderDetail
         fields = '__all__'
