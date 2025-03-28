@@ -15,7 +15,8 @@ router = DefaultRouter()
 # router.register('users', UserViewSet, basename='users')
 # router.register('group', GroupViewSet, 'view_group')
 router.register('products', ProductView, basename='products')
-router.register('order', OrderView, basename='order')
+router.register('orders', OrderView, basename='orders')
+router.register('order-status', OrderStatusView, basename='order-status')
 
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

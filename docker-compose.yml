@@ -1,13 +1,45 @@
-# version: '3.8'
+version: '3.8'
 
 services:
   app:
     build: .
     working_dir: /api
     container_name: 'app'
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     volumes:
       - .:/api
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=db_prueba
+      - DB_USER=postgres
+      - DB_PASSWORD=msdeRH3gl25WeJyPPow1kMqlv
+    networks:
+      - app-network
+
+  db:
+    image: postgres:15
+    container_name: 'db'
+    environment:
+      - POSTGRES_DB=db_prueba
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=msdeRH3gl25WeJyPPow1kMqlv
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
       
