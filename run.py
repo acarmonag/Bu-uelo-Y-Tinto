@@ -1,6 +1,7 @@
 import os
 import django
 from pathlib import Path
+from src.logger import logger, log_db_operation
 
 # Configurar el módulo de settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
@@ -19,11 +20,16 @@ def create_superuser():
                 email='admin@example.com',
                 password='adminpassword'
             )
+            log_db_operation("CREATE_SUPERUSER", "Superusuario 'admin' creado exitosamente")
             print("✅ Superusuario creado exitosamente")
         else:
+            log_db_operation("CHECK_SUPERUSER", "El superusuario 'admin' ya existe")
             print("ℹ️ El superusuario 'admin' ya existe")
     except Exception as e:
+        logger.error(f"Error creando el superusuario: {str(e)}")
         print(f"❌ Error creando el superusuario: {str(e)}")
 
 if __name__ == '__main__':
+    logger.info("Iniciando aplicación Bu-uelo y Tinto")
     create_superuser()
+    logger.info("Aplicación iniciada correctamente")

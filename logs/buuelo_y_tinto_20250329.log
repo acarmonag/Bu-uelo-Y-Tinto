@@ -1,0 +1,21 @@
+2025-03-29 16:06:11 - buuelo_y_tinto - INFO - Iniciando aplicación Bu-uelo y Tinto
+2025-03-29 16:06:12 - buuelo_y_tinto - INFO - DB Operation: CHECK_SUPERUSER - El superusuario 'admin' ya existe
+2025-03-29 16:06:12 - buuelo_y_tinto - INFO - Aplicación iniciada correctamente
+2025-03-29 16:06:30 - buuelo_y_tinto - INFO - Request: GET / - User: admin (admin@example.com)
+2025-03-29 16:06:30 - buuelo_y_tinto - INFO - Response: GET / - Status: 404 - Duration: 1.14s
+2025-03-29 16:06:50 - buuelo_y_tinto - INFO - Request: GET /admin/ - User: admin (admin@example.com)
+2025-03-29 16:06:50 - buuelo_y_tinto - INFO - Response: GET /admin/ - Status: 200 - Duration: 1.21s
+2025-03-29 16:07:13 - buuelo_y_tinto - INFO - Request: GET /admin/infrastructure/user/ - User: admin (admin@example.com)
+2025-03-29 16:07:14 - buuelo_y_tinto - INFO - Response: GET /admin/infrastructure/user/ - Status: 200 - Duration: 1.52s
+2025-03-29 16:07:15 - buuelo_y_tinto - INFO - Request: GET /admin/jsi18n/ - User: admin (admin@example.com)
+2025-03-29 16:07:15 - buuelo_y_tinto - INFO - Response: GET /admin/jsi18n/ - Status: 200 - Duration: 1.00s
+2025-03-29 16:07:48 - buuelo_y_tinto - INFO - Request: GET /admin/infrastructure/user/add/ - User: admin (admin@example.com)
+2025-03-29 16:07:55 - buuelo_y_tinto - INFO - Response: GET /admin/infrastructure/user/add/ - Status: 200 - Duration: 7.85s
+2025-03-29 16:07:56 - buuelo_y_tinto - INFO - Request: GET /admin/jsi18n/ - User: admin (admin@example.com)
+2025-03-29 16:07:56 - buuelo_y_tinto - INFO - Response: GET /admin/jsi18n/ - Status: 200 - Duration: 1.09s
+2025-03-29 16:08:35 - buuelo_y_tinto - INFO - Request: POST /admin/infrastructure/user/add/ - User: admin (admin@example.com)
+2025-03-29 16:08:36 - buuelo_y_tinto - INFO - Response: POST /admin/infrastructure/user/add/ - Status: 302 - Duration: 2.36s
+2025-03-29 16:08:37 - buuelo_y_tinto - INFO - Request: GET /admin/infrastructure/user/ - User: admin (admin@example.com)
+2025-03-29 16:08:38 - buuelo_y_tinto - INFO - Response: GET /admin/infrastructure/user/ - Status: 200 - Duration: 1.65s
+2025-03-29 16:08:39 - buuelo_y_tinto - INFO - Request: GET /admin/jsi18n/ - User: admin (admin@example.com)
+2025-03-29 16:08:39 - buuelo_y_tinto - INFO - Response: GET /admin/jsi18n/ - Status: 200 - Duration: 1.21s
