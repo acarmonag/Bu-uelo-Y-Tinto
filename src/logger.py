@@ -2,6 +2,15 @@ import logging
 import sys
 from datetime import datetime
 import json
+import os
+
+def get_docker_container_id():
+    """Obtiene el ID del contenedor Docker"""
+    try:
+        with open('/etc/hostname', 'r') as f:
+            return f.read().strip()
+    except:
+        return "NO_DOCKER_ID"
 
 # Configuración del logger
 def setup_logger():
@@ -11,7 +20,7 @@ def setup_logger():
 
     # Crear el formateador
     formatter = logging.Formatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        '%(asctime)s - %(name)s - %(levelname)s - [%(container_id)s] - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
 
@@ -29,6 +38,13 @@ def setup_logger():
     logger.addHandler(console_handler)
     logger.addHandler(file_handler)
 
+    # Agregar el ID del contenedor como un filtro
+    class ContainerFilter(logging.Filter):
+        def filter(self, record):
+            record.container_id = get_docker_container_id()
+            return True
+
+    logger.addFilter(ContainerFilter())
     return logger
 
 # Crear el logger global
@@ -75,6 +91,7 @@ def log_api_request(request, response, duration, status="SUCCESS"):
     
     log_entry = {
         "timestamp": datetime.now().isoformat(),
+        "container_id": get_docker_container_id(),
         "method": request.method,
         "path": request.path,
         "user": str(request.user) if hasattr(request, 'user') else "Anonymous",
