@@ -19,3 +19,66 @@
 2025-03-29 16:08:38 - buuelo_y_tinto - INFO - Response: GET /admin/infrastructure/user/ - Status: 200 - Duration: 1.65s
 2025-03-29 16:08:39 - buuelo_y_tinto - INFO - Request: GET /admin/jsi18n/ - User: admin (admin@example.com)
 2025-03-29 16:08:39 - buuelo_y_tinto - INFO - Response: GET /admin/jsi18n/ - Status: 200 - Duration: 1.21s
+2025-03-29 16:12:18 - buuelo_y_tinto - INFO - Iniciando aplicación Bu-uelo y Tinto
+2025-03-29 16:12:19 - buuelo_y_tinto - INFO - ❌ DB Operation: CHECK_SUPERUSER - 
+2025-03-29 16:12:19 - buuelo_y_tinto - INFO - Aplicación iniciada correctamente
+2025-03-29 16:12:21 - buuelo_y_tinto - INFO - Request: GET /admin/infrastructure/user/ - User: admin (admin@example.com)
+2025-03-29 16:12:22 - buuelo_y_tinto - INFO - ✅ API Request: {
+  "timestamp": "2025-03-29T16:12:22.417540",
+  "method": "GET",
+  "path": "/admin/infrastructure/user/",
+  "user": "admin (admin@example.com)",
+  "status_code": 200,
+  "duration": "1.56s",
+  "request_body": "Body no procesable",
+  "response_body": "Respuesta no procesable",
+  "status": "SUCCESS"
+}
+2025-03-29 16:12:23 - buuelo_y_tinto - INFO - Request: GET /admin/jsi18n/ - User: admin (admin@example.com)
+2025-03-29 16:12:23 - buuelo_y_tinto - INFO - ✅ API Request: {
+  "timestamp": "2025-03-29T16:12:23.549454",
+  "method": "GET",
+  "path": "/admin/jsi18n/",
+  "user": "admin (admin@example.com)",
+  "status_code": 200,
+  "duration": "1.07s",
+  "request_body": "Body no procesable",
+  "response_body": "Respuesta no procesable",
+  "status": "SUCCESS"
+}
+2025-03-29 16:12:32 - buuelo_y_tinto - INFO - Request: GET /admin/infrastructure/user/ - User: admin (admin@example.com)
+2025-03-29 16:12:32 - buuelo_y_tinto - INFO - ✅ API Request: {
+  "timestamp": "2025-03-29T16:12:32.668547",
+  "method": "GET",
+  "path": "/admin/infrastructure/user/",
+  "user": "admin (admin@example.com)",
+  "status_code": 200,
+  "duration": "1.67s",
+  "request_body": "Body no procesable",
+  "response_body": "Respuesta no procesable",
+  "status": "SUCCESS"
+}
+2025-03-29 16:12:33 - buuelo_y_tinto - INFO - Request: GET /admin/jsi18n/ - User: admin (admin@example.com)
+2025-03-29 16:12:33 - buuelo_y_tinto - INFO - ✅ API Request: {
+  "timestamp": "2025-03-29T16:12:33.858237",
+  "method": "GET",
+  "path": "/admin/jsi18n/",
+  "user": "admin (admin@example.com)",
+  "status_code": 200,
+  "duration": "1.16s",
+  "request_body": "Body no procesable",
+  "response_body": "Respuesta no procesable",
+  "status": "SUCCESS"
+}
+2025-03-29 16:12:47 - buuelo_y_tinto - INFO - Request: GET /admin/ - User: admin (admin@example.com)
+2025-03-29 16:12:47 - buuelo_y_tinto - INFO - ✅ API Request: {
+  "timestamp": "2025-03-29T16:12:47.204111",
+  "method": "GET",
+  "path": "/admin/",
+  "user": "admin (admin@example.com)",
+  "status_code": 200,
+  "duration": "1.26s",
+  "request_body": "Body no procesable",
+  "response_body": "Respuesta no procesable",
+  "status": "SUCCESS"
+}
