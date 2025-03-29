@@ -11,35 +11,21 @@ services:
       - "8000:8000"
     volumes:
       - .:/api
+      - app_logs:/api/logs  # Agregar este volumen
     environment:
       - PYTHONPATH=/api
       - DB_HOST=terraform-20250329031442116000000002.ccfduvi3vksv.us-east-1.rds.amazonaws.com
       - DB_NAME=appdb
       - DB_USER=postgres
       - DB_PASSWORD=SuperSecret123PASSWORD
-    # depends_on:
-    #   - db
     networks:
       - app-network
 
-  # db:
-  #   image: postgres:15
-  #   container_name: 'db'
-  #   environment:
-  #     - POSTGRES_DB=db_prueba
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=msdeRH3gl25WeJyPPow1kMqlv
-  #   ports:
-  #     - "5432:5432"
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   networks:
-  #     - app-network
-
 volumes:
   postgres_data:
+  app_logs:  # Agregar este volumen
+    driver: local
 
 networks:
   app-network:
     driver: bridge
-      

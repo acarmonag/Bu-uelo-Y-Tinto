@@ -11,6 +11,10 @@ RUN apt-get update && apt-get install -y \
 # Establecemos el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
+# Creamos el directorio de logs y establecemos los permisos
+RUN mkdir -p /app/logs && \
+    chmod 777 /app/logs
+
 # Copiamos el archivo de requerimientos dentro del contenedor
 COPY requirements.txt .
 
@@ -21,8 +25,11 @@ RUN pip install -r requirements.txt
 # Copiamos todo el código del proyecto al contenedor
 COPY . .
 
+# Aseguramos que la carpeta de logs tenga los permisos correctos después de copiar el código
+RUN chmod 777 /app/logs
+
 # Exponemos el puerto en el que la app va a correr
 EXPOSE 8000
 
 # Comando por defecto para iniciar el servidor de desarrollo de Django
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py migrate && python run.py && python manage.py runserver 0.0.0.0:8000"]
